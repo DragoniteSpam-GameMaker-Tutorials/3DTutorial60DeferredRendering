@@ -17,6 +17,6 @@ void main()
     v_vColour = in_Colour;
     v_vTexcoord = in_TextureCoord;
     
-    v_VSNormal = (gm_Matrices[MATRIX_WORLD_VIEW] * vec4(in_Normal, 0)).xyz;
+    v_VSNormal = normalize((gm_Matrices[MATRIX_WORLD_VIEW] * vec4(in_Normal, 0)).xyz);
     v_VSDepth = (gm_Matrices[MATRIX_WORLD_VIEW] * object_space_pos).z;
 }

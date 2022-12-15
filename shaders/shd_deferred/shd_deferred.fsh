@@ -5,6 +5,8 @@ uniform sampler2D samp_Depth;
 
 uniform float u_CameraZFar;
 
+uniform vec3 u_LightDirection;
+
 vec3 GetNormalFromColor(vec3 color) {
     return (color - 0.5) * 2.0;
 }
@@ -24,12 +26,26 @@ void main() {
     vec3 fragment_normal = GetNormalFromColor(col_normal.rgb);
     float fragment_depth = GetDepthFromColorLinear(col_depth.rgb);
     
+    
+    ////////////////////////////////
+    // directional light
+    ////////////////////////////////
+    vec3 light_color = vec3(1);
+    
+    float NdotL = max(0.0, -dot(fragment_normal, u_LightDirection));
+    
+    final_color.rgb *= NdotL * light_color;
+    
+    
+    ////////////////////////////////
+    // fog
+    ////////////////////////////////
     vec3 fog_color = vec3(1);
     float fog_start = 500.0;
     float fog_end = 3000.0;
     
     float fog_fraction = clamp((fragment_depth - fog_start) / (fog_end - fog_start), 0.0, 1.0);
-    final_color.rgb = mix(final_color.rgb, fog_color, fog_fraction);
+    //final_color.rgb = mix(final_color.rgb, fog_color, fog_fraction);
     
     
     

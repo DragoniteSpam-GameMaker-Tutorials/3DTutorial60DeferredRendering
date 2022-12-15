@@ -2,6 +2,15 @@ shader_set(shd_deferred);
 
 shader_set_uniform_f(shader_get_uniform(shd_deferred, "u_CameraZFar"), 16000);
 
+var light_direction = { x: 1, y: 1, z: -1 };
+var transformed = matrix_transform_vertex(self.mat_view, light_direction.x, light_direction.y, light_direction.z, 0);
+var mag = point_distance_3d(0, 0, 0, transformed[0], transformed[1], transformed[2]);
+transformed[0] /= mag;
+transformed[1] /= mag;
+transformed[2] /= mag;
+
+shader_set_uniform_f(shader_get_uniform(shd_deferred, "u_LightDirection"), transformed[0], transformed[1], transformed[2]);
+
 texture_set_stage(shader_get_sampler_index(shd_deferred, "samp_Normal"), surface_get_texture(self.surf_gbuff_normal));
 texture_set_stage(shader_get_sampler_index(shd_deferred, "samp_Depth"), surface_get_texture(self.surf_gbuff_depth));
 draw_surface_stretched(self.surf_gbuff_diffuse, 0, 0, window_get_width(), window_get_height());
