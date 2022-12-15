@@ -19,8 +19,20 @@ void main() {
     vec4 col_normal = texture2D(samp_Normal, v_vTexcoord);
     vec4 col_depth = texture2D(samp_Depth, v_vTexcoord);
     
+    vec4 final_color = col_diffuse;
+    
     vec3 fragment_normal = GetNormalFromColor(col_normal.rgb);
     float fragment_depth = GetDepthFromColorLinear(col_depth.rgb);
     
-    gl_FragColor = col_normal;
+    vec3 fog_color = vec3(1);
+    float fog_start = 500.0;
+    float fog_end = 3000.0;
+    
+    float fog_fraction = clamp((fragment_depth - fog_start) / (fog_end - fog_start), 0.0, 1.0);
+    final_color.rgb = mix(final_color.rgb, fog_color, fog_fraction);
+    
+    
+    
+    
+    gl_FragColor = final_color;
 }
