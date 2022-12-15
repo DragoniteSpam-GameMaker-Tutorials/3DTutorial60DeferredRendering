@@ -7,6 +7,7 @@
     {"id":{"name":"shd_geometry","path":"shaders/shd_geometry/shd_geometry.yy",},"order":25,},
     {"id":{"name":"duck_right","path":"sprites/duck_right/duck_right.yy",},"order":3,},
     {"id":{"name":"duck_front","path":"sprites/duck_front/duck_front.yy",},"order":1,},
+    {"id":{"name":"shd_deferred","path":"shaders/shd_deferred/shd_deferred.yy",},"order":26,},
     {"id":{"name":"duck_left","path":"sprites/duck_left/duck_left.yy",},"order":2,},
     {"id":{"name":"Objects","path":"scripts/Objects/Objects.yy",},"order":7,},
     {"id":{"name":"obj_camera","path":"objects/obj_camera/obj_camera.yy",},"order":4,},
