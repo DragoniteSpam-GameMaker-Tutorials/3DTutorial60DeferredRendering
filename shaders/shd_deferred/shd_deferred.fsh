@@ -7,6 +7,8 @@ uniform float u_CameraZFar;
 
 uniform vec3 u_LightDirection;
 
+uniform vec3 u_LightPointPosition;
+
 vec3 GetNormalFromColor(vec3 color) {
     return (color - 0.5) * 2.0;
 }
@@ -14,6 +16,14 @@ vec3 GetNormalFromColor(vec3 color) {
 const vec3 UNDO = vec3(1.0, 256.0, 65536.0) / 16777215.0 * 255.0;
 float GetDepthFromColorLinear(vec3 color) {
     return dot(color, UNDO) * u_CameraZFar;
+}
+
+uniform vec2 u_FOVScale;
+
+vec3 GetPositionFromDepthVS(float depth) {
+    vec2 ndc_position = 2.0 * (0.5 - v_vTexcoord);
+    vec3 view_space_position = vec3(ndc_position * depth * u_FOVScale, depth);
+    return view_space_position;
 }
 
 void main() {
@@ -25,7 +35,7 @@ void main() {
     
     vec3 fragment_normal = GetNormalFromColor(col_normal.rgb);
     float fragment_depth = GetDepthFromColorLinear(col_depth.rgb);
-    
+    vec3 fragment_position = GetPositionFromDepthVS(fragment_depth);
     
     ////////////////////////////////
     // directional light
@@ -34,7 +44,22 @@ void main() {
     
     float NdotL = max(0.0, -dot(fragment_normal, u_LightDirection));
     
-    final_color.rgb *= NdotL * light_color;
+    //final_color.rgb *= NdotL * light_color;
+    
+    
+    ////////////////////////////////
+    // directional light
+    ////////////////////////////////
+    vec3 point_light_color = vec3(1);
+    float point_light_range = 400.0;
+    
+    vec3 L = normalize(u_LightPointPosition - fragment_position);
+    float dist = distance(u_LightPointPosition, fragment_position);
+    NdotL = max(0.0, dot(fragment_normal, L));
+    
+    float att = clamp((point_light_range - dist) / point_light_range, 0.0, 1.0);
+    
+    final_color.rgb *= NdotL * point_light_color * att;
     
     
     ////////////////////////////////

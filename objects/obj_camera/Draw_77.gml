@@ -11,6 +11,16 @@ transformed[2] /= mag;
 
 shader_set_uniform_f(shader_get_uniform(shd_deferred, "u_LightDirection"), transformed[0], transformed[1], transformed[2]);
 
+var light_point = { x: 0, y: 0, z: 160 };
+var transformed = matrix_transform_vertex(self.mat_view, light_point.x, light_point.y, light_point.z, 1);
+
+shader_set_uniform_f(shader_get_uniform(shd_deferred, "u_LightPointPosition"), transformed[0], transformed[1], transformed[2]);
+
+var fov_y = 60;
+var aspect = -16 / 9;
+
+shader_set_uniform_f(shader_get_uniform(shd_deferred, "u_FOVScale"), dtan(fov_y * aspect / 2), dtan(fov_y / 2));
+
 texture_set_stage(shader_get_sampler_index(shd_deferred, "samp_Normal"), surface_get_texture(self.surf_gbuff_normal));
 texture_set_stage(shader_get_sampler_index(shd_deferred, "samp_Depth"), surface_get_texture(self.surf_gbuff_depth));
 draw_surface_stretched(self.surf_gbuff_diffuse, 0, 0, window_get_width(), window_get_height());
