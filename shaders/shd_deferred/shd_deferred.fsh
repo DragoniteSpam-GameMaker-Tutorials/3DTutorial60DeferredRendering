@@ -44,7 +44,7 @@ void main() {
     
     float NdotL = max(0.0, -dot(fragment_normal, u_LightDirection));
     
-    //final_color.rgb *= NdotL * light_color;
+    final_color.rgb *= NdotL * light_color;
     
     
     ////////////////////////////////

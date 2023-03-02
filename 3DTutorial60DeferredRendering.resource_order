@@ -1,0 +1,18 @@
+{
+  "FolderOrderSettings": [
+    {"name":"Demo","order":22,"path":"folders/Demo.yy",},
+  ],
+  "ResourceOrderSettings": [
+    {"name":"spr_terrain","order":23,"path":"sprites/spr_terrain/spr_terrain.yy",},
+    {"name":"shd_geometry","order":25,"path":"shaders/shd_geometry/shd_geometry.yy",},
+    {"name":"duck_right","order":3,"path":"sprites/duck_right/duck_right.yy",},
+    {"name":"duck_front","order":1,"path":"sprites/duck_front/duck_front.yy",},
+    {"name":"shd_deferred","order":26,"path":"shaders/shd_deferred/shd_deferred.yy",},
+    {"name":"duck_left","order":2,"path":"sprites/duck_left/duck_left.yy",},
+    {"name":"Objects","order":7,"path":"scripts/Objects/Objects.yy",},
+    {"name":"obj_camera","order":4,"path":"objects/obj_camera/obj_camera.yy",},
+    {"name":"shd_forward","order":6,"path":"shaders/shd_forward/shd_forward.yy",},
+    {"name":"surface_validate","order":24,"path":"scripts/surface_validate/surface_validate.yy",},
+    {"name":"Room1","order":5,"path":"rooms/Room1/Room1.yy",},
+  ],
+}
