@@ -11,24 +11,16 @@ vec3 GetNormalFromColor(vec3 color) {
     return (color - 0.5) * 2.0;
 }
 
-uniform vec2 u_FOVScale;
-
-vec3 GetPositionFromDepthVS(float depth) {
-    vec2 ndc_position = 2.0 * (0.5 - v_vTexcoord);
-    vec3 view_space_position = vec3(ndc_position * depth * u_FOVScale, depth);
-    return view_space_position;
-}
-
 void main() {
     vec4 col_diffuse = texture2D(gm_BaseTexture, v_vTexcoord);
     vec4 col_normal = texture2D(samp_Normal, v_vTexcoord);
-    vec4 col_depth = texture2D(samp_Depth, v_vTexcoord);
+    vec4 col_position = texture2D(samp_Depth, v_vTexcoord);
     
     vec4 final_color = col_diffuse;
     
     vec3 fragment_normal = GetNormalFromColor(col_normal.rgb);
-    float fragment_depth = col_depth.r;
-    vec3 fragment_position = GetPositionFromDepthVS(fragment_depth);
+    float fragment_depth = col_position.b;
+    vec3 fragment_position = col_position.rgb;
     
     ////////////////////////////////
     // directional light

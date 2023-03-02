@@ -7,7 +7,7 @@ varying vec2 v_vTexcoord;
 varying vec4 v_vColour;
 
 varying vec3 v_VSNormal;
-varying float v_VSDepth;
+varying vec3 v_VSPosition;
 
 void main()
 {
@@ -18,5 +18,5 @@ void main()
     v_vTexcoord = in_TextureCoord;
     
     v_VSNormal = normalize((gm_Matrices[MATRIX_WORLD_VIEW] * vec4(in_Normal, 0)).xyz);
-    v_VSDepth = (gm_Matrices[MATRIX_WORLD_VIEW] * object_space_pos).z;
+    v_VSPosition = (gm_Matrices[MATRIX_WORLD_VIEW] * object_space_pos).xyz;
 }
