@@ -23,7 +23,6 @@ gpu_set_zwriteenable(true);
 gpu_set_ztestenable(true);
 shader_set(shd_geometry);
 
-shader_set_uniform_f(shader_get_uniform(shd_geometry, "u_CameraZFar"), 16000);
 /*
 shader_set_uniform_f(shader_get_uniform(shd_forward, "u_LightAmbient"), 0.1, 0.1, 0.1);
 
